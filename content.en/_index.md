@@ -3,9 +3,10 @@ title: Introduction
 type: docs
 ---
 
-# Acerbo datus maxime
+# Protocol Documentation
 
 {{< columns >}}
+
 ## Astris ipse furtiva
 
 Est in vagis et Pittheus tu arge accipiter regia iram vocatur nurus. Omnes ut
@@ -20,7 +21,6 @@ Ea _furtique_ risere fratres edidit terrae magis. Colla tam mihi tenebat:
 miseram excita suadent es pecudes iam. Concilio _quam_ velatus posset ait quod
 nunc! Fragosis suae dextra geruntur functus vulgata.
 {{< /columns >}}
-
 
 ## Tempora nisi nunc
 

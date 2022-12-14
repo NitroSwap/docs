@@ -1,7 +1,7 @@
 # hugo server --minify --themesDir ... --baseURL=http://0.0.0.0:1313/theme/hugo-book/
 
 baseURL = 'https://example.com/'
-title = 'Hugo Book'
+title = 'NitroSwap'
 theme = 'hugo-book'
 
 # Book configuration
@@ -26,15 +26,15 @@ enableGitInfo = true
   contentDir = 'content.en'
   weight = 1
 
-[languages.ru]
-  languageName = 'Russian'
-  contentDir = 'content.ru'
-  weight = 2
+# [languages.ru]
+#   languageName = 'Russian'
+#   contentDir = 'content.ru'
+#   weight = 2
 
-[languages.zh]
-  languageName = 'Chinese'
-  contentDir = 'content.zh'
-  weight = 3
+# [languages.zh]
+#   languageName = 'Chinese'
+#   contentDir = 'content.zh'
+#   weight = 3
 
 [menu]
 # [[menu.before]]
