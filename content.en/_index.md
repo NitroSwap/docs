@@ -3,7 +3,7 @@ title: Introduction
 type: docs
 ---
 
-# Protocol Documentation
+# Documentation
 
 ```txt
 
