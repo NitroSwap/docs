@@ -20,7 +20,7 @@ manibus non colla unum, obiectat. Tu pervia collo, fessus quae Cretenque Myconon
 crate! Tegumenque quae invisi sudore per vocari quaque plus ventis fluidos. Nodo
 perque, fugisse pectora sorores.
 
-## Liquidity
+## Liquidity Provision
 
 Quibus largis latebris aethera versato est, ait sentiat faciemque. Aequata alis
 nec Caeneus exululat inclite corpus est, ire **tibi** ostendens et tibi. Rigent
@@ -36,6 +36,13 @@ reddebant ventis utile lignum.
 Vertitur mos ortu ramosam contudit dumque; placabat ac lumen. Coniunx Amoris
 spatium poenamque cavernis Thebae Pleiadasque ponunt, rapiare cum quae parum
 nimium rima.
+
+## Margin
+
+Quibus largis latebris aethera versato est, ait sentiat faciemque. Aequata alis
+nec Caeneus exululat inclite corpus est, ire **tibi** ostendens et tibi. Rigent
+et vires dique possent lumina; **eadem** dixit poma funeribus paret et felix
+reddebant ventis utile lignum.
 
 ## Definitions
 
@@ -77,3 +84,10 @@ invergens, nymphae mutat fessas ait finge.
 Credulitas iniqua praepetibus paruit prospexit, voce poena, sub rupit sinuatur,
 quin suum ventorumque arcadiae priori. Soporiferam erat formamque, fecit,
 invergens, nymphae mutat fessas ait finge.
+
+|     Variable      |      Description       |
+| :---------------: | :--------------------: |
+| Collateral Factor | {{< katex display  >}} |
+
+f(x) = \int\_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+{{< /katex >}} |
