@@ -22,17 +22,17 @@ type: docs
 
 ## What is Nitro?
 
-The Nitro protocol is a peer-to-peer system for margin trading cryptocurrencies ([ERC-20 tokens](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)) on the Ethereum blockchain.
+The Nitro protocol is a margin engine for automated market makers (AMMs) on the Ethereum blockchain.
 
-The protocol is designed a
+It allows users to trade any [ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/) with leverage on Uniswap V3 and Curve V2.
 
 <--->
 
-## Suis quot vota
+## How does it work?
 
-Ea _furtique_ risere fratres edidit terrae magis. Colla tam mihi tenebat:
-miseram excita suadent es pecudes iam. Concilio _quam_ velatus posset ait quod
-nunc! Fragosis suae dextra geruntur functus vulgata.
+The definig idea behind Nitro is that of the Loan Automated Market Maker (LAMM) - a novel smart contract that manages liquidity reserves for undercollateralized loans.
+
+You can read more about it [here](/docs/concepts/lamm/overview/).
 {{< /columns >}}
 
 ## Tempora nisi nunc
