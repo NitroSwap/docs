@@ -30,12 +30,12 @@ It allows users to trade any [ERC-20](https://ethereum.org/en/developers/docs/st
 
 ## How does it work?
 
-The definig idea behind Nitro is that of the Loan Automated Market Maker (LAMM) - a novel smart contract that manages liquidity reserves for undercollateralized loans.
+The defining idea behind Nitro is that of the Loan Automated Market Maker (LAMM) - a novel smart contract that manages liquidity for undercollateralized loans.
 
 You can read more about it [here](/docs/concepts/lamm/overview/).
 {{< /columns >}}
 
-## Tempora nisi nunc
+## Quick Start
 
 Lorem **markdownum** emicat gestu. Cannis sol pressit ducta. **Est** Idaei,
 tremens ausim se tutaeque, illi ulnis hausit, sed, lumina cutem. Quae avis
