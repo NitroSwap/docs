@@ -1,18 +1,11 @@
 ---
-title: Terminology
 weight: 2
 bookToc: false
 ---
 
-# Terminology
+# Definitions
 
 KaTeX shortcode let you render math typesetting in markdown document. See [KaTeX](https://katex.org/)
-
-| Definition | Description | Equation |
-| ---------- | ----------- | -------- |
-|            |             |          |
-|            |             |          |
-|            |             |          |
 
 ## Example
 

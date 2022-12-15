@@ -20,11 +20,11 @@ type: docs
 
 {{< columns >}}
 
-## Astris ipse furtiva
+## What is Nitro?
 
-Est in vagis et Pittheus tu arge accipiter regia iram vocatur nurus. Omnes ut
-olivae sensit **arma sorori** deducit, inesset **crudus**, ego vetuere aliis,
-modo arsit? Utinam rapta fiducia valuere litora _adicit cursu_, ad facies
+The Nitro protocol is a peer-to-peer system for margin trading cryptocurrencies ([ERC-20 tokens](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)) on the Ethereum blockchain.
+
+The protocol is designed a
 
 <--->
 

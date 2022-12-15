@@ -1,7 +1,7 @@
 # hugo server --minify --themesDir ... --baseURL=http://0.0.0.0:1313/theme/hugo-book/
 
 baseURL = 'https://docs-six-delta.vercel.app'
-title = 'NitroSwap'
+title = '🔥 NitroSwap'
 theme = 'hugo-book'
 
 # Book configuration
@@ -73,7 +73,7 @@ enableGitInfo = true
 
   # Set source repository location.
   # Used for 'Last Modified' and 'Edit this page' links.
-  BookRepo = 'https://github.com/NitroSwap/docs'
+  # BookRepo = 'https://github.com/NitroSwap/docs'
 
   # (Optional, default 'commit') Specifies commit portion of the link to the page's last modified
   # commit hash for 'doc' page type.

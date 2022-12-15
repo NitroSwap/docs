@@ -1,10 +1,9 @@
 ---
-title: LAMM
-weight: 1
-bookToc: false
+title: Overview
+weight: 3
 ---
 
-# Loan Automated Market Maker (LAMM)
+# Overview
 
 ## Introduction
 
@@ -20,7 +19,7 @@ manibus non colla unum, obiectat. Tu pervia collo, fessus quae Cretenque Myconon
 crate! Tegumenque quae invisi sudore per vocari quaque plus ventis fluidos. Nodo
 perque, fugisse pectora sorores.
 
-## Liquidity Provision
+## LAMM
 
 Quibus largis latebris aethera versato est, ait sentiat faciemque. Aequata alis
 nec Caeneus exululat inclite corpus est, ire **tibi** ostendens et tibi. Rigent
@@ -36,6 +35,12 @@ reddebant ventis utile lignum.
 Vertitur mos ortu ramosam contudit dumque; placabat ac lumen. Coniunx Amoris
 spatium poenamque cavernis Thebae Pleiadasque ponunt, rapiare cum quae parum
 nimium rima.
+
+## Liquidity Provision
+
+Quibus largis latebris aethera versato est, ait sentiat faciemque. Aequata alis
+nec Caeneus exululat inclite corpus est, ire **tibi** ostendens et tibi. Rigent
+et vires dique possent lumina; \*\*ea
 
 ## Margin
 
