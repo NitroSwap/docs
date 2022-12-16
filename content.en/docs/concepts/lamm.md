@@ -22,8 +22,6 @@ When a user trades using a LAMM they are forecasting the direction of a token's 
 
 We formalize the constant loan liquidity of the LAMM model and analyze its properties.
 
-### Configuration
-
 {{< mermaid class="text-center">}}
 
 flowchart LR
@@ -31,20 +29,10 @@ WBTC-USDC-UNIV3-NITRO --> WBTC-USDC-UNIV3
 
 {{< /mermaid >}}
 
-### Liquidity
+Stuff to mention:
 
-Mention how reserves work, how there are 2 tokens per pair
-
-### Trading Orders
-
-## Keepers
-
-Explain how they're used to liquidate positions that are udner the water, explain how you used collateral factor, liquidation factor and liqudiation threshold
-
-## Impermanent Loss
-
-Calculate IL here
-
-Other interesting stuff:
-
-- game theoyr, pvp, coordination between marginpool and trader against a lp
+- Configruation: We are tieing each margin pool to an amm pool
+- Liquidity: Mention how reserves work, how there are 2 tokens per pair
+- Keepers: Explain how they're used to liquidate positions that are udner the water, explain how you used collateral factor, liquidation factor and liqudiation threshold
+- Impermanent Loss: How do you calculate IL? Formally
+- Game Theory?: pvp, coordination between marginpool and trader against an amm lp
