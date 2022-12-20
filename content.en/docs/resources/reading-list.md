@@ -43,10 +43,12 @@ create a `mermaid.json` file in your `assets` folder!
 
 - [On Price Variation, Benoit Mandelbrot](https://web.williams.edu/Mathematics/sjmiller/public_html/341Fa09/econ/Mandelbroit_VariationCertainSpeculativePrices.pdf)
 - [Geometric Brownian Motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion)
+- [Measuring Asset Values for Cash Settlement in Derivative Markets, Rovert J, Shiller](https://www.nber.org/system/files/working_papers/t0131/t0131.pdf)
 
 ## Related Projects
 
 - [DAMM Finance](https://damm.finance/)
+- [Aloe](https://docs.aloe.capital/aloe-ii-wip/overview)
 
 ## GPT-3 Prompts
 
