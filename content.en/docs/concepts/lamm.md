@@ -35,7 +35,7 @@ where {{< katex >}} R {{< /katex >}} are the available token reserves and {{< ka
 When a position is built by a trader at time {{< katex >}} t {{< /katex >}}, the notional (position size) is taken to be
 
 {{< katex display >}}
-N \equiv C(t) \cdot L
+N(t) \equiv C(t) \cdot L
 {{< /katex >}}
 
 where {{< katex >}} C(t) {{< /katex >}} is the initial units of collateral backing the position and {{< katex >}} L {{< /katex >}} is the amount of initial leverage. {{< katex >}} N {{< /katex >}} is in units of the asset being borrowed.
@@ -60,7 +60,7 @@ where {{< katex >}} LT {{< /katex >}} is the liquidation threshold, a positive i
 Assuming a trader puts down an initial amount of collateral {{< katex >}} C(t) {{< /katex >}} and a leverage value of {{< katex >}} L {{< /katex >}}, the LAMM pool will track the open interest for the position and store a static reference to the debt
 
 {{< katex display >}}
-IOU = N - C(t) = C(t) \cdot (L - 1)
+IOU(t) = N - C(t) = C(t) \cdot (L - 1)
 {{< /katex >}}
 
 that the position "owes" to the protocol.

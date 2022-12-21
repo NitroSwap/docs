@@ -23,6 +23,9 @@ The content in this section is being updated on a regular basis and may be remov
 - [Uniswap Concentrated Liquidity](https://docs.uniswap.org/concepts/protocol/concentrated-liquidity)
 - [Formal Specification of xy=k](https://github.com/runtimeverification/verified-smart-contracts/blob/uniswap/uniswap/x-y-k.pdf)
 - [LLAMMA Whitepaper](https://github.com/curvefi/curve-stablecoin/blob/master/doc/curve-stablecoin.pdf)
+- [Optimal Design of Constant Function Market Makers](https://arxiv.org/pdf/2212.03340.pdf)
+- [Balancer V1 Whitepaper](https://balancer.fi/whitepaper.pdf)
+- [Carbon LP](https://resources.carbondefi.xyz/pages/CarbonLitepaper.pdf)
 
 ## Lending Pools
 
