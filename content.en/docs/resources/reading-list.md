@@ -9,10 +9,9 @@ bookToc: false
 A list of reading resources to better understand margin trading, perps and liquidity pools.
 
 {{< hint info >}}
-**Override Mermaid Initialization Config**
+**WIP Notice**
 
-To override the [initialization config](https://mermaid-js.github.io/mermaid/#/Setup) for Mermaid,
-create a `mermaid.json` file in your `assets` folder!
+The content in this section is being updated on a regular basis and may be removed.
 {{< /hint >}}
 
 ## AMMs
@@ -34,6 +33,11 @@ create a `mermaid.json` file in your `assets` folder!
 
 - [Cap Finance Documentation](https://docs.cap.finance/trade/open-a-position)
 - [GMX Trading Documentation](https://gmxio.gitbook.io/gmx/trading)
+
+## Oracle Vulnerabilities
+
+- [Rari Fuse VUSD Incident](https://cmichel.io/replaying-ethereum-hacks-rari-fuse-vusd-price-manipulation/)
+- [CRV Bad Debt on Aave](https://blockworks.co/news/aave-curve-bad-debt)
 
 ## Contracts for Difference (CFDs)
 

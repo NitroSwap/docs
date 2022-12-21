@@ -7,27 +7,66 @@ weight: 1
 
 ## Overview
 
-The Loan Automated Market Maker (LAMM) is a novel mechanism for managing liquidity for undercollateralized loans. In a LAMM, users can deposit margin and borrow leverage at a fraction of their collateral value. This is useful for traders who wish to long/short [ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/) tokens on decentralized exchanges (DEXs).
+The Loan Automated Market Maker (LAMM) is a smart contract that provides constant function liquidity for undercollateralized loans. In a LAMM, users can deposit margin and borrow leverage multiple times higher than their collateral value.
 
 This is possible due to a couple reasons:
 
-1. LAMM is the **custodian** of the margin position
+1. LAMM is the **custodian** of the margin trade
 2. LAMM has visibility into the position's **profit and loss**
 
-By design, LAMMs exist on top of AMMs. Each LAMM points to an AMM pool where it obtains its trading liquidity, price oracles and other calculations like price impact and slippage. This is particularly important when trading long-tail assets, as they are susceptible to oracle attacks as seen with [Rari](https://cmichel.io/replaying-ethereum-hacks-rari-fuse-vusd-price-manipulation/) and more recently, [Aave](https://blockworks.co/news/aave-curve-bad-debt).
+This design allows LAMMs to profit from a trader's self-interest, while conserving guarantees that would prevent the LAMM from incurring in loses beyond the trader's collateral.
 
-When a user trades using a LAMM they are forecasting the direction of a token's price. When this forecast is correct, the PnL is positive and the settlement is executed using the reserves of an AMM such as Uniswap or Curve. However, when the PnL is negative LAMMs can liquidate a user's margin. In some scenarios, liquidations may not happen in a timely manner and what would be considered as "bad debt" is expressed as impermanent loss (IL) for the LAMM LPs.
+Each LAMM points to an AMM pool where it obtains its trading liquidity, price oracles and other calculations like price impact and slippage. This is particularly important when trading long-tail assets, as they are susceptible to [oracle attacks](/docs/resources/reading-list/#oracle-vulnerabilities).
 
-## Loan Automated Market Maker (LAMM)
+Below we attempt to provide a formal specification of the LAMM model.
 
-We formalize the constant loan liquidity of the LAMM model and analyze its properties.
+## Liquidity
 
-{{< mermaid class="text-center">}}
+Each LAMM stores pooled reserves for a single asset, and provides loans for that asset maintaining the invariant that the reserves plus IOUs cannot decrease. The value of a LAMM pool can be expressed as
 
-flowchart LR
-WBTC-USDC-UNIV3-NITRO --> WBTC-USDC-UNIV3
+{{< katex display >}}
+V = R + IOUs
+{{< /katex >}}
 
-{{< /mermaid >}}
+where {{< katex >}} R {{< /katex >}} are the available token reserves and {{< katex >}} IOUs {{< /katex >}} are the token reserves taken out in open interest contracts. {{< katex >}} L {{< /katex >}} is denominated in units of the borrow token.
+
+## Positions
+
+When a position is built by a trader at time {{< katex >}} t {{< /katex >}}, the notional (position size) is taken to be
+
+{{< katex display >}}
+N = C(t) \cdot L
+{{< /katex >}}
+
+where {{< katex >}} C(t) {{< /katex >}} is the initial units of collateral backing the position and {{< katex >}} L {{< /katex >}} is the amount of initial leverage. {{< katex >}} N {{< /katex >}} is in units of the asset being borrowed.
+
+The initial open interest associated with this position is taken to be the number of contracts the trader has entered into
+
+{{< katex display >}}
+OI(t) = \frac{N}{P(t)}
+{{< /katex >}}
+
+where {{< katex >}} P(t) {{< /katex >}} is the TWAP oracle value fetched at time {{< katex >}} t {{< /katex >}} when the position is built.
+
+## Debt
+
+Assuming a trader puts down an initial amount of collateral {{< katex >}} C(t) {{< /katex >}} and a leverage value of {{< katex >}} L {{< /katex >}}, the LAMM pool will track the open interest for the position and store a static reference to the debt
+
+{{< katex display >}}
+IOU = N - C(t) = C(t) \cdot (L - 1)
+{{< /katex >}}
+
+that the position "owes" to the protocol.
+
+## Profit and Loss
+
+The PnL offered to a position contract is linear in price, yet capped to allow for downside protection. A position contract receives
+
+{{< katex display >}}
+PnL(t, t+r) = \pm OI(t + r) \cdot [P_{exit}(t + r) - P_{entry}(t)]
+{{< /katex >}}
+
+in {{< katex >}} PnL {{< /katex >}} where {{< katex >}} OI {{< /katex >}} is the open interest occupied by the position in units of number of position contracts, {{< katex >}} P{entry} {{< /katex >}} is the entry price given to the position at time {{< katex >}} t {{< /katex >}}, {{< katex >}} P{exit} {{< /katex >}} is the exit price given to the position at time {{< katex >}} t + r {{< /katex >}}. In the case of a long {{< katex >}} \pm = +1 {{< /katex >}} and {{< katex >}} \pm = -1 {{< /katex >}} in the case of a short. While {{< katex >}} \pm [\frac{P_{exit}}{P_{entry}} - 1] > LF {{< /katex >}}, the position is able to experience a positive payoff function of {{< katex >}} e^x - 1{{< /katex >}}.
 
 Stuff to mention:
 
@@ -36,3 +75,15 @@ Stuff to mention:
 - Keepers: Explain how they're used to liquidate positions that are udner the water, explain how you used collateral factor, liquidation factor and liqudiation threshold
 - Impermanent Loss: How do you calculate IL? Formally
 - Game Theory?: pvp, coordination between marginpool and trader against an amm lp
+- LAMM pools accrue value via trading fees and liquidations, and hence do not experience impermanent loss (IL).
+
+{{< katex display >}}
+f(x) = \int\_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
+{{< /katex >}}
+
+{{< mermaid class="text-center">}}
+
+flowchart LR
+WBTC-USDC-UNIV3-NITRO --> WBTC-USDC-UNIV3
+
+{{< /mermaid >}}
