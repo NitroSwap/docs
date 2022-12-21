@@ -18,11 +18,6 @@ perque, fugisse pectora sorores.
 
 ## Collateral Factor (CF)
 
-Quibus largis latebris aethera versato est, ait sentiat faciemque. Aequata alis
-nec Caeneus exululat inclite corpus est, ire **tibi** ostendens et tibi. Rigent
-et vires dique possent lumina; **eadem** dixit poma funeribus paret et felix
-reddebant ventis utile lignum.
-
 Vertitur mos ortu ramosam contudit dumque; placabat ac lumen. Coniunx Amoris
 spatium poenamque cavernis Thebae Pleiadasque ponunt, rapiare cum quae parum
 nimium rima.

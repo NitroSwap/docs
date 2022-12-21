@@ -28,14 +28,14 @@ Each LAMM stores pooled reserves for a single asset, and provides loans for that
 V = R + IOUs
 {{< /katex >}}
 
-where {{< katex >}} R {{< /katex >}} are the available token reserves and {{< katex >}} IOUs {{< /katex >}} are the token reserves taken out in open interest contracts. {{< katex >}} L {{< /katex >}} is denominated in units of the borrow token.
+where {{< katex >}} R {{< /katex >}} are the available token reserves and {{< katex >}} IOUs {{< /katex >}} are the token reserves taken out in open interest contracts. {{< katex >}} V {{< /katex >}} is denominated in units of the borrow token.
 
 ## Positions
 
 When a position is built by a trader at time {{< katex >}} t {{< /katex >}}, the notional (position size) is taken to be
 
 {{< katex display >}}
-N = C(t) \cdot L
+N \equiv C(t) \cdot L
 {{< /katex >}}
 
 where {{< katex >}} C(t) {{< /katex >}} is the initial units of collateral backing the position and {{< katex >}} L {{< /katex >}} is the amount of initial leverage. {{< katex >}} N {{< /katex >}} is in units of the asset being borrowed.
@@ -43,10 +43,17 @@ where {{< katex >}} C(t) {{< /katex >}} is the initial units of collateral backi
 The initial open interest associated with this position is taken to be the number of contracts the trader has entered into
 
 {{< katex display >}}
-OI(t) = \frac{N}{P(t)}
+OI(t) \equiv \frac{N}{P(t)}
 {{< /katex >}}
 
 where {{< katex >}} P(t) {{< /katex >}} is the TWAP oracle value fetched at time {{< katex >}} t {{< /katex >}} when the position is built.
+
+There are two calculations needed to determine the liquidation price and collateral takeover price of the position. They are
+
+- Collateral Factor: {{< katex >}} CF = \frac{C(t)}{N} {{< /katex >}}
+- Liquidation Factor: {{< katex >}} LF = \frac{C(t) \cdot LT}{N} {{< /katex >}}
+
+where {{< katex >}} LT {{< /katex >}} is the liquidation threshold, a positive integer between {{< katex >}} 1 {{< /katex >}} and {{< katex >}} 2 {{< /katex >}}.
 
 ## Debt
 
@@ -67,6 +74,16 @@ PnL(t, t+r) = \pm OI(t + r) \cdot [P_{exit}(t + r) - P_{entry}(t)]
 {{< /katex >}}
 
 in {{< katex >}} PnL {{< /katex >}} where {{< katex >}} OI {{< /katex >}} is the open interest occupied by the position in units of number of position contracts, {{< katex >}} P{entry} {{< /katex >}} is the entry price given to the position at time {{< katex >}} t {{< /katex >}}, {{< katex >}} P{exit} {{< /katex >}} is the exit price given to the position at time {{< katex >}} t + r {{< /katex >}}. In the case of a long {{< katex >}} \pm = +1 {{< /katex >}} and {{< katex >}} \pm = -1 {{< /katex >}} in the case of a short. While {{< katex >}} \pm [\frac{P_{exit}}{P_{entry}} - 1] > LF {{< /katex >}}, the position is able to experience a positive payoff function of {{< katex >}} e^x - 1{{< /katex >}}.
+
+## Settlement (WIP)
+
+Basically going to breakdown how to calcualte the collateral backing of a position at time t+r and then create payoffs scenarios:
+
+1. close position profit
+
+2. liquidation
+
+<hr/>
 
 Stuff to mention:
 
