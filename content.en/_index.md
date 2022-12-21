@@ -37,18 +37,15 @@ You can read more about it [here](/docs/concepts/lamm).
 
 ## Quick Start
 
-Lorem **markdownum** emicat gestu. Cannis sol pressit ducta. **Est** Idaei,
-tremens ausim se tutaeque, illi ulnis hausit, sed, lumina cutem. Quae avis
-sequens!
+Welcome to Nitro's official documentation. This website contains resources and guides for using the Nitro protocol.
 
-    var panel = ram_design;
-    if (backup + system) {
-        file.readPoint = network_native;
-        sidebar_engine_device(cell_tftp_raster,
-                dual_login_paper.adf_vci.application_reader_design(
-                graphicsNvramCdma, lpi_footer_snmp, integer_model));
-    }
+- [Protocol Concepts](/docs/concepts/lamm/)
+- [Contracts](/docs/contracts/margin-pool/)
+- [FAQ](/docs/resources/faq/)
+- [Reading List](/docs/resources/reading-list/)
 
-## Locis suis novi cum suoque decidit eadem
+{{< hint warning >}}
+**Work In Progress**
 
-Idmoniae ripis, at aves, ali missa adest, ut _et autem_, et ab?
+The content in this section is being updated on a regular basis and may be removed. For previous version visit this website's [Github repo](https://github.com/NitroSwap/docs).
+{{< /hint >}}
