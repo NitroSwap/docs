@@ -87,8 +87,6 @@ Basically going to breakdown how to calcualte the collateral backing of a positi
 
 Stuff to mention:
 
-- Configruation: We are tieing each margin pool to an amm pool
-- Liquidity: Mention how reserves work, how there are 2 tokens per pair
 - Keepers: Explain how they're used to liquidate positions that are udner the water, explain how you used collateral factor, liquidation factor and liqudiation threshold
 - Impermanent Loss: How do you calculate IL? Formally
 - Game Theory?: pvp, coordination between marginpool and trader against an amm lp
