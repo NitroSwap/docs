@@ -35,6 +35,18 @@ There are two calculations needed to determine the liquidation price and collate
 
 where {{< katex >}} LT {{< /katex >}} is the liquidation threshold, a positive integer between {{< katex >}} 1 {{< /katex >}} and {{< katex >}} 2 {{< /katex >}}.
 
+## Profit and Loss
+
+When a position is built a snapshot of the entire notional value {{< katex >}} v_i(t) {{< /katex >}} is taken using the {{< katex >}} priceOracle{{< /katex >}}
+
+The PnL offered to a position contract is linear in price, yet capped to allow for downside protection. Suppose a position is built at time {{< katex >}} t_0 {{< /katex >}} then the profit (or loss) at time {{< katex >}} t_1 {{< /katex >}} is given by
+
+{{< katex display >}}
+PnL_i(t_1) = \pm v_i(t_0) \cdot \frac{P(t_1) - P(t_0)}{P(t_0)} = \pm n_i(t_0) \cdot [P(t_1) - P(t_0)]
+{{< /katex >}}
+
+in {{< katex >}} PnL {{< /katex >}} where {{< katex >}} n_i(t) {{< /katex >}} is the open interest occupied by the position in units of number of position contracts, {{< katex >}} P(t_0) {{< /katex >}} is the entry price given to the position at time {{< katex >}} t_0 {{< /katex >}}, {{< katex >}} P(t_1) {{< /katex >}} is the exit price given to the position at time {{< katex >}} t_1 {{< /katex >}}. In the case of a long {{< katex >}} \pm = +1 {{< /katex >}} and {{< katex >}} \pm = -1 {{< /katex >}} in the case of a short. While {{< katex >}} \pm [\frac{P(t_1)}{P(t_0)} - 1] > LF(t_1) {{< /katex >}}, the position is able to experience a positive payoff function of {{< katex >}} e^x - 1{{< /katex >}}.
+
 ## Overview
 
 When a user trades using a LAMM they are forecasting the direction of a token's price. When this forecast is correct, the PnL is positive and the settlement is executed using the reserves of an AMM such as Uniswap or Curve. However, when the PnL is negative LAMMs can liquidate a user's margin. In some scenarios, liquidations may not happen in a timely manner and what would be considered as "bad debt" is expressed as impermanent loss (IL) for the LAMM LPs.

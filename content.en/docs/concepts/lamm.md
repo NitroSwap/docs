@@ -14,7 +14,7 @@ This is possible due to a couple reasons:
 1. LAMM is the **custodian** of a user's trading position
 2. LAMM has visibility into that position's **profit and loss**
 
-This design allows LAMMs to profit from a trader's self-interest, while conserving guarantees that would prevent the LAMM from incurring in loses beyond the trader's collateral.
+This design allows LAMMs to benefit from a trader's self-interest, while conserving guarantees that would prevent the LAMM from incurring in loses beyond the trader's collateral.
 
 Each LAMM points to an AMM pool where it obtains its trading liquidity, price oracles and other calculations like price impact and slippage. This is particularly important when trading long-tail assets, as they are susceptible to [oracle attacks](/docs/resources/reading-list/#oracle-vulnerabilities).
 
@@ -85,9 +85,7 @@ When a position is built it undergoes a state transition from the {{< katex >}} 
 x_i(t) = v_i(t) \cdot priceOracle(t) \cdot (1 - slippageTolerance)
 {{< /katex >}}
 
-where {{< katex >}} priceOracle(t) {{< /katex >}} is the number of {{< katex >}} tradingAsset {{< /katex >}} units exchanged for {{< katex >}} v_i(t) {{< /katex >}} at time {{< katex >}} t {{< /katex >}} after subtracting the max slippage {{< katex >}} slippageTolerance {{< /katex >}}.
-
-{{< katex >}} x_i(t) {{< /katex >}} is denominated in {{< katex >}} tradingAsset {{< /katex >}} units.
+where {{< katex >}} priceOracle(t) {{< /katex >}} is the number of {{< katex >}} tradingAsset {{< /katex >}} units exchanged for {{< katex >}} v_i(t) {{< /katex >}} at time {{< katex >}} t {{< /katex >}} after subtracting the max slippage {{< katex >}} slippageTolerance {{< /katex >}}. {{< katex >}} x_i(t) {{< /katex >}} is denominated in {{< katex >}} tradingAsset {{< /katex >}} units.
 
 ## Debt
 
@@ -101,15 +99,13 @@ that the position "owes" to the protocol. This debt is denominated in units of t
 
 ## Profit and Loss
 
-When a position is built a snapshot of the entire notional value {{< katex >}} v_i(t) {{< /katex >}} is taken using the {{< katex >}} priceOracle{{< /katex >}}
-
-The PnL offered to a position contract is linear in price, yet capped to allow for downside protection. Suppose a position is built at time {{< katex >}} t_0 {{< /katex >}} then the profit (or loss) at time {{< katex >}} t_1 {{< /katex >}} is given by
+A position's current PnL can be expressed as
 
 {{< katex display >}}
-PnL_i(t_1) = \pm v_i(t_0) \cdot \frac{P(t_1) - P(t_0)}{P(t_0)} = \pm n_i(t_0) \cdot [P(t_1) - P(t_0)]
-{{< /katex >}}
 
-in {{< katex >}} PnL {{< /katex >}} where {{< katex >}} n_i(t) {{< /katex >}} is the open interest occupied by the position in units of number of position contracts, {{< katex >}} P(t_0) {{< /katex >}} is the entry price given to the position at time {{< katex >}} t_0 {{< /katex >}}, {{< katex >}} P(t_1) {{< /katex >}} is the exit price given to the position at time {{< katex >}} t_1 {{< /katex >}}. In the case of a long {{< katex >}} \pm = +1 {{< /katex >}} and {{< katex >}} \pm = -1 {{< /katex >}} in the case of a short. While {{< katex >}} \pm [\frac{P(t_1)}{P(t_0)} - 1] > LF(t_1) {{< /katex >}}, the position is able to experience a positive payoff function of {{< katex >}} e^x - 1{{< /katex >}}.
+PnL_i(t_1) = \frac{v_i(t)}{priceOracle(t_1)} \cdot (1 - slippageTolerance) - d_i(t)
+
+{{< /katex >}}
 
 ## Settlement (WIP)
 
@@ -120,21 +116,3 @@ Basically going to breakdown how to calcualte the collateral backing of a positi
 2. liquidation
 
 <hr/>
-
-Stuff to mention:
-
-- Keepers: Explain how they're used to liquidate positions that are udner the water, explain how you used collateral factor, liquidation factor and liqudiation threshold
-- Impermanent Loss: How do you calculate IL? Formally
-- Game Theory?: pvp, coordination between marginpool and trader against an amm lp
-- LAMM pools accrue value via trading fees and liquidations, and hence do not experience impermanent loss (IL).
-
-{{< katex display >}}
-f(x) = \int\_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
-{{< /katex >}}
-
-{{< mermaid class="text-center">}}
-
-flowchart LR
-WBTC-USDC-UNIV3-NITRO --> WBTC-USDC-UNIV3
-
-{{< /mermaid >}}
