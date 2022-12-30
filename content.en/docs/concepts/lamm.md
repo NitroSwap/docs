@@ -11,8 +11,8 @@ The Loan Automated Market Maker (LAMM) is a smart contract that provides constan
 
 This is possible due to a couple reasons:
 
-1. LAMM is the **custodian** of the margin trade
-2. LAMM has visibility into the position's **profit and loss**
+1. LAMM is the **custodian** of a user's trading position
+2. LAMM has visibility into that position's **profit and loss**
 
 This design allows LAMMs to profit from a trader's self-interest, while conserving guarantees that would prevent the LAMM from incurring in loses beyond the trader's collateral.
 
@@ -20,60 +20,96 @@ Each LAMM points to an AMM pool where it obtains its trading liquidity, price or
 
 Below we attempt to provide a formal specification of the LAMM model.
 
+## Configuration
+
+To initialize a pool the following parameters must be provided:
+
+| Variable                                       | Type    | Definition                                                                    |
+| ---------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
+| {{< katex >}} baseAsset {{< /katex >}}         | address | The asset being used as collateral (eg.USDC)                                  |
+| {{< katex >}} tradingAsset {{< /katex >}}      | address | The asset being traded (eg. UNI)                                              |
+| {{< katex >}} priceOracle {{< /katex >}}       | address | The on-chain price feed denoting tradingAsset in terms of the baseAsset.      |
+| {{< katex >}} maxLeverage {{< /katex >}}       | uint256 | Max amount of leverage allowed.                                               |
+| {{< katex >}} \phi {{< /katex >}}              | uint256 | Fixed fee as a percentage of the position's value (where 100% equals `1e18`). |
+| {{< katex >}} slippageTolerance {{< /katex >}} | uint256 | Max percentage of price slippage allowed during AMM swaps.                    |
+
 ## Liquidity
 
-Each LAMM stores pooled reserves for a single asset, and provides loans for that asset maintaining the invariant that the reserves plus IOUs cannot decrease. The value of a LAMM pool can be expressed as
+Let {{< katex >}} LP(t) {{< /katex >}} be the number of liquidity providers and {{< katex >}} r_i(t) {{< /katex >}} be the reserves deposited by the {{< katex >}} i^{th} {{< /katex >}} liquidity provider. Then the total available token reserves are
 
 {{< katex display >}}
-V = R + IOUs
+R(t) = \sum\_{i \in LP(t)} r_i(t).
 {{< /katex >}}
 
-where {{< katex >}} R {{< /katex >}} are the available token reserves and {{< katex >}} IOUs {{< /katex >}} are the token reserves taken out in open interest contracts. {{< katex >}} V {{< /katex >}} is denominated in units of the borrow token.
+Let {{< katex >}} M(t) {{< /katex >}} be the number of traders and {{< katex >}} d_i(t) {{< /katex >}} be the debt owed by the {{< katex >}} i^{th} {{< /katex >}} trader. Then the total debt owed by traders is
+
+{{< katex display >}}
+D(t) = \sum\_{i \in M(t)} d_i(t).
+{{< /katex >}}
+
+Each LAMM stores pooled reserves for a single asset, and provides loans for that asset maintaining the invariant that the reserves plus debt cannot decrease. The value of a LAMM pool can be expressed as
+
+{{< katex display >}}
+\Lambda(t) = R(t) + D(t)
+{{< /katex >}}
+
+where {{< katex >}} \Lambda {{< /katex >}} is denominated in units of the {{< katex >}} baseAsset {{< /katex >}}.
 
 ## Positions
 
-When a position is built by a trader at time {{< katex >}} t {{< /katex >}}, the notional (position size) is taken to be
+Let {{< katex >}} c_i(t) {{< /katex >}} and {{< katex >}} l_i(t) {{< /katex >}} denote the {{< katex >}} i^{th} {{< /katex >}} investors collateral and leverage respectively. Then the value of a position built by the {{< katex >}} i^{th} {{< /katex >}} margin trader at time {{< katex >}} t {{< /katex >}} is
 
 {{< katex display >}}
-N(t) \equiv C(t) \cdot L
+v_i(t) = c_i(t) \cdot l_i(t) \cdot (1 - \phi)
 {{< /katex >}}
 
-where {{< katex >}} C(t) {{< /katex >}} is the initial units of collateral backing the position and {{< katex >}} L {{< /katex >}} is the amount of initial leverage. {{< katex >}} N {{< /katex >}} is in units of the asset being borrowed.
-
-The initial open interest associated with this position is taken to be the number of contracts the trader has entered into
+where the constant {{< katex >}} \phi {{< /katex >}} is a percentage fee that is deposited into the margin pool. For such a position the fee is calculated as
 
 {{< katex display >}}
-OI(t) \equiv \frac{N}{P(t)}
+f_i(t) = \phi \cdot c_i(t) \cdot l_i(t)
 {{< /katex >}}
 
-where {{< katex >}} P(t) {{< /katex >}} is the TWAP oracle value fetched at time {{< katex >}} t {{< /katex >}} when the position is built.
+such that the value of the position is simply the difference between the leveraged collateral and a fee
 
-There are two calculations needed to determine the liquidation price and collateral takeover price of the position. They are
+{{< katex display >}}
+v_i(t) = c_i(t) \cdot l_i(t) - f_i(t)
+{{< /katex >}}
 
-- Collateral Factor: {{< katex >}} CF = \frac{C(t)}{N} {{< /katex >}}
-- Liquidation Factor: {{< katex >}} LF = \frac{C(t) \cdot LT}{N} {{< /katex >}}
+The value of the position, also referred to as the notional, is denominated in units of the {{< katex >}} baseAsset {{< /katex >}}.
 
-where {{< katex >}} LT {{< /katex >}} is the liquidation threshold, a positive integer between {{< katex >}} 1 {{< /katex >}} and {{< katex >}} 2 {{< /katex >}}.
+## State Transition
+
+When a position is built it undergoes a state transition from the {{< katex >}} baseAsset {{< /katex >}} to the {{< katex >}} tradingAsset {{< /katex >}}. The value of the new position can be expressed as
+
+{{< katex display >}}
+x_i(t) = v_i(t) \cdot priceOracle(t) \cdot (1 - slippageTolerance)
+{{< /katex >}}
+
+where {{< katex >}} priceOracle(t) {{< /katex >}} is the number of {{< katex >}} tradingAsset {{< /katex >}} units exchanged for {{< katex >}} v_i(t) {{< /katex >}} at time {{< katex >}} t {{< /katex >}} after subtracting the max slippage {{< katex >}} slippageTolerance {{< /katex >}}.
+
+{{< katex >}} x_i(t) {{< /katex >}} is denominated in {{< katex >}} tradingAsset {{< /katex >}} units.
 
 ## Debt
 
-Assuming a trader puts down an initial amount of collateral {{< katex >}} C(t) {{< /katex >}} and a leverage value of {{< katex >}} L {{< /katex >}}, the LAMM pool will track the open interest for the position and store a static reference to the debt
+Assuming a trader puts down an initial amount of collateral {{< katex >}} c_i(t) {{< /katex >}} and a leverage value of {{< katex >}} l_i(t) {{< /katex >}}, the LAMM pool will track the open interest for the position and store a static reference to the debt
 
 {{< katex display >}}
-IOU(t) = N - C(t) = C(t) \cdot (L - 1)
+d_i(t) = v_i(t) - c_i(t) + f_i(t)
 {{< /katex >}}
 
-that the position "owes" to the protocol.
+that the position "owes" to the protocol. This debt is denominated in units of the {{< katex >}} baseAsset {{< /katex >}}.
 
 ## Profit and Loss
 
-The PnL offered to a position contract is linear in price, yet capped to allow for downside protection. A position contract receives
+When a position is built a snapshot of the entire notional value {{< katex >}} v_i(t) {{< /katex >}} is taken using the {{< katex >}} priceOracle{{< /katex >}}
+
+The PnL offered to a position contract is linear in price, yet capped to allow for downside protection. Suppose a position is built at time {{< katex >}} t_0 {{< /katex >}} then the profit (or loss) at time {{< katex >}} t_1 {{< /katex >}} is given by
 
 {{< katex display >}}
-PnL(t, t+r) = \pm OI(t + r) \cdot [P_{exit}(t + r) - P_{entry}(t)]
+PnL_i(t_1) = \pm v_i(t_0) \cdot \frac{P(t_1) - P(t_0)}{P(t_0)} = \pm n_i(t_0) \cdot [P(t_1) - P(t_0)]
 {{< /katex >}}
 
-in {{< katex >}} PnL {{< /katex >}} where {{< katex >}} OI {{< /katex >}} is the open interest occupied by the position in units of number of position contracts, {{< katex >}} P{entry} {{< /katex >}} is the entry price given to the position at time {{< katex >}} t {{< /katex >}}, {{< katex >}} P{exit} {{< /katex >}} is the exit price given to the position at time {{< katex >}} t + r {{< /katex >}}. In the case of a long {{< katex >}} \pm = +1 {{< /katex >}} and {{< katex >}} \pm = -1 {{< /katex >}} in the case of a short. While {{< katex >}} \pm [\frac{P_{exit}}{P_{entry}} - 1] > LF {{< /katex >}}, the position is able to experience a positive payoff function of {{< katex >}} e^x - 1{{< /katex >}}.
+in {{< katex >}} PnL {{< /katex >}} where {{< katex >}} n_i(t) {{< /katex >}} is the open interest occupied by the position in units of number of position contracts, {{< katex >}} P(t_0) {{< /katex >}} is the entry price given to the position at time {{< katex >}} t_0 {{< /katex >}}, {{< katex >}} P(t_1) {{< /katex >}} is the exit price given to the position at time {{< katex >}} t_1 {{< /katex >}}. In the case of a long {{< katex >}} \pm = +1 {{< /katex >}} and {{< katex >}} \pm = -1 {{< /katex >}} in the case of a short. While {{< katex >}} \pm [\frac{P(t_1)}{P(t_0)} - 1] > LF(t_1) {{< /katex >}}, the position is able to experience a positive payoff function of {{< katex >}} e^x - 1{{< /katex >}}.
 
 ## Settlement (WIP)
 

@@ -1,10 +1,39 @@
 ---
-title: Trade
+title: Leveraged Trading
 weight: 2
 bookToc: false
 ---
 
 # Trade
+
+## Positions2
+
+Let {{< katex >}} c_i(t) {{< /katex >}} and {{< katex >}} l_i(t) {{< /katex >}} denote the {{< katex >}} i^{th} {{< /katex >}} investors collateral and leverage respectively. Let the constant {{< katex >}} \phi {{< /katex >}} be the percentage of leveraged collateral that is deposited into the margin pool acting as a fee paid out to liquidity providers. Then the fee for a position built at time {{< katex >}} t {{< /katex >}} is calculated as
+
+{{< katex display >}}
+f_i(t) = \phi \cdot c_i(t) \cdot l_i(t)
+{{< /katex >}}
+
+such that the value of the position is simply the difference between the leveraged collateral and the fee
+
+{{< katex display >}}
+v_i(t) = c_i(t) \cdot l_i(t) - f_i(t).
+{{< /katex >}}
+
+The initial open interest associated with this position is taken to be the number of contracts the trader has entered into
+
+{{< katex display >}}
+n_i(t) \equiv \frac{v_i(t)}{P(t)}
+{{< /katex >}}
+
+where {{< katex >}} P(t) {{< /katex >}} is the TWAP oracle value fetched at time {{< katex >}} t {{< /katex >}} when the position is built.
+
+There are two calculations needed to determine the liquidation price and collateral takeover price of the position. They are
+
+- Collateral Factor: {{< katex >}} CF_i(t) = \frac{c_i(t)}{v_i(t)} {{< /katex >}}
+- Liquidation Factor: {{< katex >}} LF_i(t) = \frac{c_i(t) \cdot LT}{v_i(t)} {{< /katex >}}
+
+where {{< katex >}} LT {{< /katex >}} is the liquidation threshold, a positive integer between {{< katex >}} 1 {{< /katex >}} and {{< katex >}} 2 {{< /katex >}}.
 
 ## Overview
 
