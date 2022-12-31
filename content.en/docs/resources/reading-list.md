@@ -37,6 +37,7 @@ The content in this section is being updated on a regular basis and may be remov
 
 - [Cap Finance Documentation](https://docs.cap.finance/trade/open-a-position)
 - [GMX Trading Documentation](https://gmxio.gitbook.io/gmx/trading)
+- [GMX Technical Overview](https://gmx-io.notion.site/gmx-io/GMX-Technical-Overview-47fc5ed832e243afb9e97e8a4a036353)
 
 ## Oracle Vulnerabilities
 

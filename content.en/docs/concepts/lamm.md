@@ -85,7 +85,7 @@ When a position is built it undergoes a state transition from the {{< katex >}} 
 x_i(t) = v_i(t) \cdot priceOracle(t) \cdot (1 - slippageTolerance)
 {{< /katex >}}
 
-where {{< katex >}} priceOracle(t) {{< /katex >}} is the number of {{< katex >}} tradingAsset {{< /katex >}} units exchanged for {{< katex >}} v_i(t) {{< /katex >}} at time {{< katex >}} t {{< /katex >}} after subtracting the max slippage {{< katex >}} slippageTolerance {{< /katex >}}. {{< katex >}} x_i(t) {{< /katex >}} is denominated in {{< katex >}} tradingAsset {{< /katex >}} units.
+where {{< katex >}} priceOracle(t) {{< /katex >}} is the number of {{< katex >}} tradingAsset {{< /katex >}} units exchanged for {{< katex >}} v_i(t) {{< /katex >}} at time {{< katex >}} t {{< /katex >}} after subtracting the max slippage {{< katex >}} slippageTolerance {{< /katex >}}.
 
 ## Debt
 
@@ -103,16 +103,24 @@ A position's current PnL can be expressed as
 
 {{< katex display >}}
 
-PnL_i(t_1) = \frac{v_i(t)}{priceOracle(t_1)} \cdot (1 - slippageTolerance) - d_i(t)
+PnL_i(t_1) = \frac{x_i(t)}{priceOracle(t_1)} - v_i(t)
 
 {{< /katex >}}
 
-## Settlement (WIP)
+## Settlement
 
-Basically going to breakdown how to calcualte the collateral backing of a position at time t+r and then create payoffs scenarios:
+While a position is active, it may be closed for profits or for loss as long as it's notional value after slippage and debt is larger than zero
 
-1. close position profit
+{{< katex display >}}
 
-2. liquidation
+\frac{x_i(t)}{priceOracle(t_1)} \cdot (1 - slippageTolerance) - d_i(t) > 0
+
+{{< /katex >}}
+
+Similarly, when the value of the position's collateral {{< katex >}} c_i(t) {{< /katex >}} is equal to the loss of a position after fees, the position may be liquidated as
+
+{{< katex display >}}
+c_i(t_1) - PnL(t_1) - f_i(t_1) = 0
+{{< /katex >}}
 
 <hr/>

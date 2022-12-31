@@ -1,5 +1,5 @@
 ---
-title: Terminology
+title: Glossary
 weight: 2
 bookToc: false
 ---
