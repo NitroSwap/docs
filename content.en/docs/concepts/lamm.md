@@ -38,13 +38,13 @@ To initialize a pool the following parameters must be provided:
 Let {{< katex >}} LP(t) {{< /katex >}} be the number of liquidity providers and {{< katex >}} r_i(t) {{< /katex >}} be the reserves deposited by the {{< katex >}} i^{th} {{< /katex >}} liquidity provider. Then the total available token reserves are
 
 {{< katex display >}}
-R(t) = \sum\_{i \in LP(t)} r_i(t).
+R(t) = \sum_{i \in LP(t)} r_i(t).
 {{< /katex >}}
 
 Let {{< katex >}} M(t) {{< /katex >}} be the number of traders and {{< katex >}} d_i(t) {{< /katex >}} be the debt owed by the {{< katex >}} i^{th} {{< /katex >}} trader. Then the total debt owed by traders is
 
 {{< katex display >}}
-D(t) = \sum\_{i \in M(t)} d_i(t).
+D(t) = \sum_{i \in M(t)} d_i(t).
 {{< /katex >}}
 
 Each LAMM stores pooled reserves for a single asset, and provides loans for that asset maintaining the invariant that the reserves plus debt cannot decrease. The value of a LAMM pool can be expressed as
