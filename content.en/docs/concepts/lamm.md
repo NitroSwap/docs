@@ -117,10 +117,8 @@ While a position is active, it may be closed for profits or for loss as long as 
 
 {{< /katex >}}
 
-Similarly, when the value of the position's collateral {{< katex >}} c_i(t) {{< /katex >}} is equal to the loss of a position after fees, the position may be liquidated as
-
-{{< katex display >}}
-c_i(t_1) - PnL(t_1) - f_i(t_1) = 0
-{{< /katex >}}
+A position may be liquidated at a price when the value of its collateral after losses and fees is less than or equal to zero {{< katex  >}}
+c_i(t) - PnL(t_1) - f_i(t_1) \leq 0
+{{< /katex >}}.
 
 <hr/>
