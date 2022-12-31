@@ -1,6 +1,6 @@
 ---
 title: Leveraged Trading
-weight: 2
+weight: 1
 bookToc: false
 ---
 
